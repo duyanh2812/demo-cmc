@@ -1,0 +1,1 @@
+web: java -jar demo-se-0.0.1-SNAPSHOT.jar
