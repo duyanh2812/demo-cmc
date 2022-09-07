@@ -33,6 +33,8 @@ public class Product {
 
     private List<Category> listCategory;
 
+    private Integer quantity;
+
     public Product(String name, Double price, String desc) {
         this.name = name;
         this.price = price;

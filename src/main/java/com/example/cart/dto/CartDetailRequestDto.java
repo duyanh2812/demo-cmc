@@ -1,0 +1,17 @@
+package com.example.cart.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.Set;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class CartDetailRequestDto {
+    private long userid;
+    private List<ProductRequestDto> productRequestList;
+
+}
