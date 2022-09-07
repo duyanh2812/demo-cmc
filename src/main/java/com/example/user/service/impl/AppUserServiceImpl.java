@@ -5,6 +5,7 @@ import com.example.user.entity.User;
 import com.example.user.repo.RoleRepo;
 import com.example.user.repo.UserRepo;
 import com.example.user.service.AppUserService;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -25,8 +25,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Map<String,Object> body = new LinkedHashMap<>();
         ObjectMapper mapper = new ObjectMapper();
-        System.out.println(1);
-        if (httpSession.getAttribute("username") != null) {
+        if (request.getParameter("username") == null) {
             body.put("Timestamp", LocalDateTime.now().toString());
             body.put("Status", HttpServletResponse.SC_NOT_FOUND);
             body.put("Message", "Username password incorrect");

@@ -13,6 +13,8 @@ import com.example.user.service.UserService;
 import java.util.List;
 
 import com.example.user.util.UserMap;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,4 +65,5 @@ public class UserServiceImpl implements UserService {
     public int updateByPrimaryKey(User row) {
         return userMapper.updateByPrimaryKey(row);
     }
+
 }
