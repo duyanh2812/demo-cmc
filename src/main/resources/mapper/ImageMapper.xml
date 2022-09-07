@@ -21,12 +21,16 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.product.model.Image" useGeneratedKeys="true">
     <!--@mbg.generated -->
-    insert into image (product_id, url, `desc`, 
-      created_dtm, created_id, updated_dtm, 
-      updated_id)
-    values (#{productId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
-      #{createdDtm,jdbcType=TIMESTAMP}, #{createdId,jdbcType=BIGINT}, #{updatedDtm,jdbcType=TIMESTAMP}, 
-      #{updatedId,jdbcType=BIGINT})
+<!--    insert into image (product_id, url, `desc`, -->
+<!--      created_dtm, created_id, updated_dtm, -->
+<!--      updated_id)-->
+<!--    values (#{productId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, -->
+<!--      #{createdDtm,jdbcType=TIMESTAMP}, #{createdId,jdbcType=BIGINT}, #{updatedDtm,jdbcType=TIMESTAMP}, -->
+<!--      #{updatedId,jdbcType=BIGINT})-->
+
+    insert into image (product_id, url)
+    values (#{productId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR})
+
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.product.model.Image">
     <!--@mbg.generated -->

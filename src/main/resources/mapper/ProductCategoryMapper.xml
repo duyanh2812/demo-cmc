@@ -18,12 +18,16 @@
     where category_id = #{categoryId,jdbcType=BIGINT}
       and product_id = #{productId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" keyColumn="product_id" keyProperty="productId" parameterType="com.example.product.model.ProductCategory" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.example.product.model.ProductCategory" >
     <!--@mbg.generated -->
-    insert into product_category (category_id, created_dtm, created_id, 
-      updated_dtm, updated_id)
-    values (#{categoryId,jdbcType=BIGINT}, #{createdDtm,jdbcType=TIMESTAMP}, #{createdId,jdbcType=BIGINT}, 
-      #{updatedDtm,jdbcType=TIMESTAMP}, #{updatedId,jdbcType=BIGINT})
+<!--    insert into product_category (product_id, created_dtm, created_id,-->
+<!--      updated_dtm, updated_id)-->
+<!--    values (#{categoryId,jdbcType=BIGINT}, #{createdDtm,jdbcType=TIMESTAMP}, #{createdId,jdbcType=BIGINT},-->
+<!--      #{updatedDtm,jdbcType=TIMESTAMP}, #{updatedId,jdbcType=BIGINT})-->
+
+    insert into product_category (product_id, category_id)
+    values (#{productId,jdbcType=BIGINT},#{categoryId,jdbcType=BIGINT})
+
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.product.model.ProductCategory">
     <!--@mbg.generated -->

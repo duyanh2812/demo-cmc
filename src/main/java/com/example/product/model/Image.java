@@ -25,4 +25,9 @@ public class Image {
     private Date updatedDtm;
 
     private Long updatedId;
+
+    public Image(Long productId, String url) {
+        this.productId = productId;
+        this.url = url;
+    }
 }

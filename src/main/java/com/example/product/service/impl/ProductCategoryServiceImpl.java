@@ -25,8 +25,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public int insert(ProductCategory row) {
-        return productCategoryMapper.insert(row);
+    public int insert(long categoryId, long productId) {
+        return productCategoryMapper.insert(categoryId,productId);
     }
 
     @Override

@@ -15,6 +15,7 @@ public interface ProductService {
     int insert(Product row);
 
     Product selectByPrimaryKey(Long id);
+    Product latestCreatedProduct();
 
     List<Product> selectAll(int current_page, int page_size);
 
