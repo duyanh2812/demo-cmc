@@ -26,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
+@CrossOrigin("*")
 public class ProductRestController {
 
     UploadFileUtils uploadFileUtils = new UploadFileUtils();
@@ -91,7 +92,7 @@ public class ProductRestController {
         return new ResponseEntity<>(listDTO,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
-    @PostMapping(value = "/addProduct")
+    @PostMapping(value = "/admin/addProduct")
     public ResponseEntity addProduct(
             @RequestParam(value = "files", required = false) MultipartFile[] multipartFile,
             String jsonFile){
