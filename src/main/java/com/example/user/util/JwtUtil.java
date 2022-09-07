@@ -2,7 +2,9 @@ package com.example.user.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.example.user.repo.UserRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class JwtUtil {
-    public static void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
+    public static void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult, com.example.user.model.User u) throws IOException, ServletException {
         User user = (User) authResult.getPrincipal();
         //ma thong bao nen de cho khac va ma hoa
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
@@ -36,9 +38,10 @@ public class JwtUtil {
                 .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
-        Map<String, String> tokens = new HashMap<>();
+        Map<String, Object> tokens = new HashMap<>();
         tokens.put("access_token",access_token);
         tokens.put("refresh_token",refresh_token);
+        tokens.put("user", u);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }

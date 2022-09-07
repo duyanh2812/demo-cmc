@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.filter.CustomAuthenticationFilter;
+import com.example.user.dao.UserMapper;
 import com.example.user.dto.req.ReqLogin;
 import com.example.user.dto.req.ReqUserDto;
 import com.example.user.entity.User;
@@ -45,6 +46,8 @@ public class UserController {
     private final AppUserService appUserService;
     private final UserService userService;
 
+    private final UserMapper userMapper;
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -70,9 +73,10 @@ public class UserController {
                         dto.getPassword()
                 )
         );
-        httpSession.setAttribute("username", dto.getUsername());
-        JwtUtil.successfulAuthentication(httpServletRequest, httpServletResponse, authentication);
-        return new ResponseEntity<>(HttpStatus.OK);
+        com.example.user.model.User user = userMapper.selectByEmail(dto.getUsername());
+        user.setPassword(null);
+        JwtUtil.successfulAuthentication(httpServletRequest, httpServletResponse, authentication, user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 
