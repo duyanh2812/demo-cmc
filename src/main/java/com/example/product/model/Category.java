@@ -1,10 +1,14 @@
 package com.example.product.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
     private Long id;
 
@@ -21,4 +25,8 @@ public class Category {
     private Date updatedDtm;
 
     private Long updatedId;
+
+    public Category(String name) {
+        this.name = name;
+    }
 }

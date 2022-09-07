@@ -36,6 +36,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product latestCreatedProduct() {
+        return productMapper.latestCreatedProduct();
+    }
+
+    @Override
     public List<Product> selectAll(int current_page, int page_size) {
 
         int offset = (current_page-1)* page_size;
