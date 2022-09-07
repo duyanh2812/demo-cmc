@@ -1,5 +1,6 @@
 package com.example.config;
 
+import com.example.cart.dao.CartMapper;
 import com.example.product.dao.CategoryMapper;
 import com.example.product.dao.ImageMapper;
 import com.example.product.dao.ProductCategoryMapper;
@@ -76,5 +77,9 @@ public class MyBatisConfig {
         return sessionTemplate.getMapper(CategoryMapper.class);
     }
 
-
+    @Bean (name = "cartMapper")
+    public CartMapper cartMapper() throws Exception {
+        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory().getObject());
+        return sessionTemplate.getMapper(CartMapper.class);
+    }
 }
