@@ -26,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
+@CrossOrigin("*")
 public class ProductRestController {
 
     UploadFileUtils uploadFileUtils = new UploadFileUtils();
@@ -52,7 +53,7 @@ public class ProductRestController {
         return new ResponseEntity<>(listDTO,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
-    @GetMapping(value = "/productsAdmin")
+    @GetMapping(value = "/admin/products")
     public ResponseEntity getAllProductsAdmin(@RequestParam(value = "page") int currentPage,
                                               @RequestParam(value = "size") int pageSize){
         List<Product> listProduct = new ArrayList<>();
@@ -71,7 +72,7 @@ public class ProductRestController {
         return new ResponseEntity<>(prdDTO,prdDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 
     }
-    @GetMapping(value = "/productsAdmin/{id}")
+    @GetMapping(value = "/admin/product/{id}")
     public ResponseEntity getDetailProductAdmin(@PathVariable("id") Long id){
         Product prd = productService.selectByPrimaryKey(id);
         ProductAdminDTO prdDTO = adminMap.dtoMapProduct(prd);
@@ -91,7 +92,7 @@ public class ProductRestController {
         return new ResponseEntity<>(listDTO,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
-    @PostMapping(value = "/addProduct")
+    @PostMapping(value = "/admin/addProduct")
     public ResponseEntity addProduct(
             @RequestParam(value = "files", required = false) MultipartFile[] multipartFile,
             String jsonFile){
