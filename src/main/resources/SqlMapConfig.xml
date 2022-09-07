@@ -4,9 +4,19 @@
     <typeAliases>
         <typeAlias alias="User" type="com.example.user.model.User"/>
         <typeAlias alias="Role" type="com.example.user.model.Role"/>
+        <typeAlias alias="Product" type="com.example.product.model.Product"/>
+        <typeAlias alias="ProductCategory" type="com.example.product.model.ProductCategory"/>
+        <typeAlias alias="Category" type="com.example.product.model.Category"/>
+        <typeAlias alias="Image" type="com.example.product.model.Image"/>
+
     </typeAliases>
     <mappers>
         <mapper resource="mapper/UserMapper.xml" />
         <mapper resource="mapper/RoleMapper.xml" />
+        <mapper resource="mapper/ProductMapper.xml" />
+        <mapper resource="mapper/ProductCategoryMapper.xml" />
+        <mapper resource="mapper/CategoryMapper.xml" />
+        <mapper resource="mapper/ImageMapper.xml" />
+
     </mappers>
 </configuration>
