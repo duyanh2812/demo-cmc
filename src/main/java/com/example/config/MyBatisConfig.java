@@ -1,6 +1,11 @@
 package com.example.config;
 
+import com.example.product.dao.CategoryMapper;
+import com.example.product.dao.ImageMapper;
+import com.example.product.dao.ProductCategoryMapper;
+import com.example.product.dao.ProductMapper;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,15 +48,33 @@ public class MyBatisConfig {
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setBasePackage("com.example.user.dao");
-        //mapperScannerConfigurer
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
         return mapperScannerConfigurer;
     }
 
     // Có thể tạo @Bean cho mỗi interface mapper thay vì scan toàn bộ
-//    @Bean (name = "studentMapper")
-//    public StudentMapper studentMapper() throws Exception {
-//        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory().getObject());
-//        return sessionTemplate.getMapper(StudentMapper.class);
-//    }
+    @Bean (name = "productMapper")
+    public ProductMapper productMapper() throws Exception {
+        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory().getObject());
+        return sessionTemplate.getMapper(ProductMapper.class);
+    }
+
+    @Bean (name = "productCategoryMapper")
+    public ProductCategoryMapper productCategoryMapper() throws Exception {
+        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory().getObject());
+        return sessionTemplate.getMapper(ProductCategoryMapper.class);
+    }
+    @Bean (name = "imageMapper")
+    public ImageMapper imageMapperMapper() throws Exception {
+        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory().getObject());
+        return sessionTemplate.getMapper(ImageMapper.class);
+    }
+
+    @Bean (name = "categoryMapper")
+    public CategoryMapper categoryMapper() throws Exception {
+        SqlSessionTemplate sessionTemplate = new SqlSessionTemplate(sqlSessionFactory().getObject());
+        return sessionTemplate.getMapper(CategoryMapper.class);
+    }
+
+
 }
