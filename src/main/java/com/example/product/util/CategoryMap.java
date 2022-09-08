@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryMap {
-    public static List<CategoryMapper> MapImage(List<Category> ctg){
+    public static List<CategoryMapper> mapCategory(List<Category> ctg){
         List<CategoryMapper> listDTO = new ArrayList<>();
         for (Category item:ctg
         ) {

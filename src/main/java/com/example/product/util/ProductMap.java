@@ -23,7 +23,7 @@ public class ProductMap {
 
     public static ProductUserDTO dtoMapProduct(Product item){
             return new ProductUserDTO(item.getId(), item.getName(),item.getPrice() , item.getDesc(), ImageMap.MapImage( item.getListImg()),
-                    CategoryMap.MapImage(item.getListCategory()));
+                    CategoryMap.mapCategory(item.getListCategory()));
     }
 
     public static List<ProductUserDTO> dtoMapProduct(List<Product> list){
@@ -31,7 +31,7 @@ public class ProductMap {
         for (Product item:list
              ) {
             ProductUserDTO itemDTO = new ProductUserDTO(item.getId(), item.getName(),item.getPrice() , item.getDesc(), ImageMap.MapImage( item.getListImg()),
-                    CategoryMap.MapImage(item.getListCategory()));
+                    CategoryMap.mapCategory(item.getListCategory()));
             listDTO.add(itemDTO);
         }
         return listDTO;
