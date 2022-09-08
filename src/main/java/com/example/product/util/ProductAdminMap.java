@@ -25,7 +25,7 @@ public class ProductAdminMap {
             if(item.getUpdatedId()!= null) {
                  modifier = userMapper.selectByPrimaryKey(item.getUpdatedId());
             }
-            ProductAdminDTO itemDTO = new ProductAdminDTO(item.getId(), item.getName(), item.getPrice(), item.getDesc(),ImageMap.MapImage( item.getListImg()), CategoryMap.MapImage(item.getListCategory()),
+            ProductAdminDTO itemDTO = new ProductAdminDTO(item.getId(), item.getName(), item.getPrice(), item.getDesc(),ImageMap.MapImage( item.getListImg()), CategoryMap.mapCategory(item.getListCategory()),
                     item.getDeleteYn(),UserMap.mapUser(creator), item.getCreatedDtm(),UserMap.mapUser(modifier), item.getUpdatedDtm());
             listDTO.add(itemDTO);
         }
@@ -45,7 +45,7 @@ public class ProductAdminMap {
                 modifier = userMapper.selectByPrimaryKey(product.getUpdatedId());
             }
             dTO = new ProductAdminDTO(product.getId(), product.getName(), product.getPrice(), product.getDesc(),
-                    ImageMap.MapImage( product.getListImg()), CategoryMap.MapImage(product.getListCategory()),
+                    ImageMap.MapImage( product.getListImg()), CategoryMap.mapCategory(product.getListCategory()),
                     product.getDeleteYn(),UserMap.mapUser(creator), product.getCreatedDtm(),UserMap.mapUser(modifier), product.getUpdatedDtm());
         return dTO;
     }
