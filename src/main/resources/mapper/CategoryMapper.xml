@@ -7,8 +7,6 @@
     <!-- generated on Tue Aug 30 10:47:31 GMT+07:00 2022 -->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="desc" jdbcType="VARCHAR" property="desc" />
     <result column="created_dtm" jdbcType="TIMESTAMP" property="createdDtm" />
     <result column="created_id" jdbcType="BIGINT" property="createdId" />
     <result column="updated_dtm" jdbcType="TIMESTAMP" property="updatedDtm" />
@@ -21,10 +19,10 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.product.model.Category" useGeneratedKeys="true">
     <!--@mbg.generated -->
-    insert into category (`name`, url, `desc`, 
+    insert into category (`name`,
       created_dtm, created_id, updated_dtm, 
       updated_id)
-    values (#{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+    values (#{name,jdbcType=VARCHAR},
       #{createdDtm,jdbcType=TIMESTAMP}, #{createdId,jdbcType=BIGINT}, #{updatedDtm,jdbcType=TIMESTAMP}, 
       #{updatedId,jdbcType=BIGINT})
   </insert>
@@ -32,8 +30,6 @@
     <!--@mbg.generated -->
     update category
     set `name` = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      `desc` = #{desc,jdbcType=VARCHAR},
       created_dtm = #{createdDtm,jdbcType=TIMESTAMP},
       created_id = #{createdId,jdbcType=BIGINT},
       updated_dtm = #{updatedDtm,jdbcType=TIMESTAMP},
@@ -42,13 +38,13 @@
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated -->
-    select id, `name`, url, `desc`, created_dtm, created_id, updated_dtm, updated_id
+    select id, `desc`, created_dtm, created_id, updated_dtm, updated_id
     from category
     where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     <!--@mbg.generated -->
-    select id, `name`, url, `desc`, created_dtm, created_id, updated_dtm, updated_id
+    select id, `name`, created_dtm, created_id, updated_dtm, updated_id
     from category
   </select>
 </mapper>
