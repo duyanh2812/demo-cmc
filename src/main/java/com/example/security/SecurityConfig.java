@@ -2,6 +2,7 @@ package com.example.security;
 
 import com.example.filter.CustomAuthenticationFilter;
 import com.example.filter.CustomAuthorizationFilter;
+import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests().antMatchers("/login/**", "/api/login/**", "/api/user/register", "/api/token/refresh/**", "/api/products", "/api/product/**").permitAll();
@@ -75,12 +77,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .accessDeniedHandler(accessDeniedHandler());
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
     }
 }
