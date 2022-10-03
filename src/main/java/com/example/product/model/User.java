@@ -15,7 +15,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     private String name;
 

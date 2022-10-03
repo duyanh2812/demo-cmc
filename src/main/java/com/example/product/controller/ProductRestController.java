@@ -1,13 +1,11 @@
 package com.example.product.controller;
 
+import com.example.file.FileStorageService;
 import com.example.product.dto.ProductAddRequestDTO;
 import com.example.product.dto.ProductAdminDTO;
 import com.example.product.dto.ProductUserDTO;
-import com.example.product.model.Category;
 import com.example.product.model.Image;
 import com.example.product.model.Product;
-import com.example.product.model.ProductCategory;
-import com.example.product.service.CategoryService;
 import com.example.product.service.ImageService;
 import com.example.product.service.ProductCategoryService;
 import com.example.product.service.ProductService;
@@ -38,11 +36,14 @@ public class ProductRestController {
     ImageService imageService;
     @Autowired
     ProductService productService;
+    
+    @Autowired
+    private FileStorageService fileStorageService;
 
 //    FileUtils fileUtils = new FileUtils();
 
     @GetMapping(value = "/products")
-    public ResponseEntity getAllProductsUser(@RequestParam(value = "page") int currentPage,
+    public ResponseEntity<List<ProductUserDTO>> getAllProductsUser(@RequestParam(value = "page") int currentPage,
                                              @RequestParam(value = "size") int pageSize){
         List<Product> listProduct = new ArrayList<>();
 
@@ -54,7 +55,7 @@ public class ProductRestController {
     }
 
     @GetMapping(value = "/admin/products")
-    public ResponseEntity getAllProductsAdmin(@RequestParam(value = "page") int currentPage,
+    public ResponseEntity<List<ProductAdminDTO>> getAllProductsAdmin(@RequestParam(value = "page") int currentPage,
                                               @RequestParam(value = "size") int pageSize){
         List<Product> listProduct = new ArrayList<>();
 
@@ -66,14 +67,14 @@ public class ProductRestController {
     }
 
     @GetMapping(value = "/product/{id}")
-    public ResponseEntity getDetailProductUser(@PathVariable("id") Long id){
+    public ResponseEntity<ProductUserDTO> getDetailProductUser(@PathVariable("id") Long id){
         Product prd = productService.selectByPrimaryKey(id);
         ProductUserDTO prdDTO = ProductMap.dtoMapProduct(prd);
         return new ResponseEntity<>(prdDTO,prdDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
 
     }
     @GetMapping(value = "/admin/product/{id}")
-    public ResponseEntity getDetailProductAdmin(@PathVariable("id") Long id){
+    public ResponseEntity<ProductAdminDTO> getDetailProductAdmin(@PathVariable("id") Long id){
         Product prd = productService.selectByPrimaryKey(id);
         ProductAdminDTO prdDTO = adminMap.dtoMapProduct(prd);
         return new ResponseEntity<>(prdDTO,prdDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
@@ -81,7 +82,7 @@ public class ProductRestController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity searchProductUser(@RequestParam(value = "name") String name ,
+    public ResponseEntity<List<ProductUserDTO>> searchProductUser(@RequestParam(value = "name") String name ,
                                             @RequestParam(value = "page") int currentPage,
                                             @RequestParam(value = "size") int pageSize){
         List<Product> list  = new ArrayList<>();
@@ -93,7 +94,7 @@ public class ProductRestController {
     }
 
     @PostMapping(value = "/admin/addProduct")
-    public ResponseEntity addProduct(
+    public ResponseEntity<String> addProduct(
             @RequestParam(value = "files", required = false) MultipartFile[] multipartFile,
             String jsonFile){
 //        MultipartFile[] multipartFile = productDTO.getImages();
@@ -101,7 +102,7 @@ public class ProductRestController {
         List<String> listAddedImg = new ArrayList<>();
         try {
             for(MultipartFile file: multipartFile){
-             String name =    uploadFileUtils.handleUploadFile(file);
+             String name =    fileStorageService.storeFile(file);
                 listAddedImg.add(name);
             }
             ProductAddRequestDTO productDTO = new ObjectMapper().readValue(jsonFile, ProductAddRequestDTO.class);

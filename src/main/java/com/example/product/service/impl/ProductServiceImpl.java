@@ -7,11 +7,9 @@ package com.example.product.service.impl;
 import com.example.product.dao.ProductMapper;
 import com.example.product.model.Product;
 import com.example.product.service.ProductService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;

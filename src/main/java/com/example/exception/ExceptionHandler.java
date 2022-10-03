@@ -1,7 +1,6 @@
 package com.example.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,6 @@ import java.util.Map;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Slf4j
 public class ExceptionHandler<E extends Exception> {
 
     public void exceptionHandler(E e, HttpServletRequest request, HttpServletResponse response) throws IOException {

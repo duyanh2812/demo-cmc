@@ -19,7 +19,7 @@ public class Product {
 
     private String desc;
 
-    private Byte deleteYn;
+    private char deleteYn = 'N';
 
     private Date createdDtm;
 
