@@ -2,7 +2,6 @@ package com.example.security;
 
 import com.example.filter.CustomAuthenticationFilter;
 import com.example.filter.CustomAuthorizationFilter;
-import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,11 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs",
+        web.ignoring().antMatchers("/v3/api-docs/",
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/configuration/security",
                 "/swagger-ui.html",
+                "/swagger-ui/index.html",
                 "/webjars/**");
     }
 
@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests().antMatchers("/login/**", "/api/login/**", "/api/user/register", "/api/token/refresh/**", "/api/products", "/api/product/**").permitAll();
+        http.authorizeRequests().antMatchers("/login/**", "/api/login/**", "/api/user/register", "/api/token/refresh/**", "/api/products", "/api/product/**", "/swagger-ui/**", "/v3/**","/swagger-ui.html").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/admin/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/admin/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/admin/users").hasAnyAuthority("ADMIN");
