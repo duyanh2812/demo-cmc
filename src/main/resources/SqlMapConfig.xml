@@ -8,6 +8,7 @@
         <typeAlias alias="ProductCategory" type="com.example.product.model.ProductCategory"/>
         <typeAlias alias="Category" type="com.example.product.model.Category"/>
         <typeAlias alias="Image" type="com.example.product.model.Image"/>
+        <typeAlias alias="Blog" type="com.example.blog.model.BlogVo"/>
 
     </typeAliases>
     <mappers>
@@ -18,6 +19,7 @@
         <mapper resource="mapper/CategoryMapper.xml" />
         <mapper resource="mapper/ImageMapper.xml" />
         <mapper resource="mapper/CartMapper.xml" />
+        <mapper resource="mapper/BlogMapper.xml" />
 
     </mappers>
 </configuration>
