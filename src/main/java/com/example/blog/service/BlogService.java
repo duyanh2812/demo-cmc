@@ -14,6 +14,7 @@ public interface BlogService {
 	
 	int insertBlog(BlogVo blog, Long userId);
 	List<BlogVo> getAllBlog(BlogDto input, int page, int size);
+	int countAll(BlogDto input);
 	BlogVo	getBlogById(Long blogId);
 	int deleteBlogById(Long blogId);
 	int updateBlogById(BlogDto input);

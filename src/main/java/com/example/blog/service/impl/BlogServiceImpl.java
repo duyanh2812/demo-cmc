@@ -49,4 +49,10 @@ public class BlogServiceImpl implements BlogService{
 		return blogMapper.updateBlogById(input);
 	}
 
+	@Override
+	public int countAll(BlogDto input) {
+		// TODO Auto-generated method stub
+		return blogMapper.countAllBlogs(input);
+	}
+
 }

@@ -29,4 +29,5 @@ public interface BlogMapper {
 	"updated_dtm = CURRENT_TIMESTAMP()" +
 	"updated_id = #{updatedId}")
 	public int updateBlogById(@Param(value="blogDto") BlogDto input);
+	public int countAllBlogs(@Param(value="input") BlogDto input);
 }
