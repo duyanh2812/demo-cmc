@@ -12,10 +12,10 @@ import com.example.blog.model.BlogVo;
 
 public interface BlogService {
 	
-	int insertBlog(BlogVo blog);
-	List<BlogVo> getAllBlog(BlogDto input);
-	BlogVo	getBlogById(BigInteger blogId);
-	int deleteBlogById(BigInteger blogId);
+	int insertBlog(BlogVo blog, Long userId);
+	List<BlogVo> getAllBlog(BlogDto input, int page, int size);
+	BlogVo	getBlogById(Long blogId);
+	int deleteBlogById(Long blogId);
 	int updateBlogById(BlogDto input);
    
 }

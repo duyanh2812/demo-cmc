@@ -3,6 +3,8 @@ package com.example.blog.controller;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,24 +31,24 @@ public class BlogController {
 
     @GetMapping(value = "/blogs")
     public ResponseEntity<List<BlogVo>> getAllBlogsUser(@RequestParam(value = "page") int currentPage,
-                                             @RequestParam(value = "size") int pageSize, @RequestParam BlogDto blogDto){
-        return new ResponseEntity<>(blogService.getAllBlog(blogDto),HttpStatus.OK);
+                                             @RequestParam(value = "size") int pageSize, @RequestParam(required = false) BlogDto blogDto){
+        return new ResponseEntity<>(blogService.getAllBlog(blogDto, currentPage, pageSize),HttpStatus.OK);
     }
     
     @GetMapping(value = "/admin/blogs")
     public ResponseEntity<List<BlogVo>> getAllBlogsAdmin(@RequestParam(value = "page") int currentPage,
                                              @RequestParam(value = "size") int pageSize, @RequestParam BlogDto blogDto){
-        return new ResponseEntity<>(blogService.getAllBlog(blogDto),HttpStatus.OK);
+        return new ResponseEntity<>(blogService.getAllBlog(blogDto, currentPage, pageSize),HttpStatus.OK);
     }
     
     @GetMapping(value = "/blog/{id}")
-    public ResponseEntity<BlogVo> getAllProductsUser(@PathVariable(value = "id") BigInteger blogId){
+    public ResponseEntity<BlogVo> getAllProductsUser(@PathVariable(value = "id") Long blogId){
         return new ResponseEntity<>(blogService.getBlogById(blogId),HttpStatus.OK);
     }
     
     @PostMapping(value="/admin/blog/add")
-    public ResponseEntity<ResponseVo> insertBlog(BlogVo input){
-    	blogService.insertBlog(input);
+    public ResponseEntity<ResponseVo> insertBlog(@org.springframework.web.bind.annotation.RequestBody BlogVo input, HttpServletRequest request){
+    	blogService.insertBlog(input, (Long) request.getSession().getAttribute("userId"));
     	return new ResponseEntity<>(new ResponseVo("Created"), HttpStatus.CREATED);
     }
 }

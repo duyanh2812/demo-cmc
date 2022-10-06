@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody ReqLogin dto) throws Exception {
+    public ResponseEntity<?> login(@RequestBody ReqLogin dto, HttpServletRequest request) throws Exception {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         dto.getUsername(),
@@ -72,6 +72,7 @@ public class UserController {
         );
         com.example.user.model.User user = userMapper.selectByEmail(dto.getUsername());
         user.setPassword(null);
+        request.getSession().setAttribute("userId", user.getId());
         JwtUtil.successfulAuthentication(httpServletRequest, httpServletResponse, authentication, user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -111,11 +112,13 @@ public class UserController {
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
                 String username = decodedJWT.getSubject();
                 User user = appUserService.getUser(username);
+                List<String> roles = new ArrayList<>();
+                roles.add(user.getRole().getName());
                 String access_token = JWT.create()
                         .withSubject(user.getUsername())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 60 * 1000))
                         .withIssuer(request.getRequestURL().toString())
-                        .withClaim("roles", user.getRole().getName())
+                        .withClaim("roles", roles)
                         .sign(algorithm);
                 Map<String, String> tokens = new HashMap<>();
                 tokens.put("access_token",access_token);

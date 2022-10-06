@@ -8,12 +8,11 @@ import lombok.Data;
 @Data
 public class BlogVo {
 	private BigInteger id;
-	private String userId;
 	private String title;
 	private String description;
 	private String delYn;
 	private Date createdDtm;
-	private BigInteger createdId;
+	private Long createdId;
 	private Date updatedDtm;
 	private BigInteger updatedId;
 }
