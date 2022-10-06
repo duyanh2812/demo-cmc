@@ -39,9 +39,12 @@ public class BlogController {
     }
     
     @GetMapping(value = "/admin/blogs")
-    public ResponseEntity<List<BlogVo>> getAllBlogsAdmin(@RequestParam(value = "page") int currentPage,
+    public ResponseEntity<ResponseVo> getAllBlogsAdmin(@RequestParam(value = "page") int currentPage,
                                              @RequestParam(value = "size") int pageSize, @RequestParam BlogDto blogDto){
-        return new ResponseEntity<>(blogService.getAllBlog(blogDto, currentPage, pageSize),HttpStatus.OK);
+    	ResponseVo resVo = new ResponseVo("OK");
+    	resVo.setVoList(blogService.getAllBlog(blogDto, currentPage, pageSize));
+    	resVo.setTotal(blogService.countAll(blogDto));
+        return new ResponseEntity<>(resVo,HttpStatus.OK);
     }
     
     @GetMapping(value = "/blog/{id}")
