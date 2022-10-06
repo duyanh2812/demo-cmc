@@ -14,7 +14,7 @@
   </resultMap>
 
   <select id="getBlogs" parameterType="com.example.blog.dto.BlogDto" resultMap="BaseResultMap">
-    select * from  (select id, user_id, title, description, DENSE_RANK() OVER (ORDER BY id) rnum
+    select * from  (select id, title, description, DENSE_RANK() OVER (ORDER BY id) rnum
     from blog
     where 1=1
     <if test="input != null and input.title != null and input.title != ''">
