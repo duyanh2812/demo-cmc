@@ -11,6 +11,7 @@ import lombok.Data;
 public class BlogVo extends BaseVo{
 	private BigInteger id;
 	private String title;
+	private String url;
 	private String description;
 	private String delYn;
 	private Date createdDtm;
