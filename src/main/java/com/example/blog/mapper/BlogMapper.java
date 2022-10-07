@@ -12,8 +12,8 @@ import com.example.product.model.Image;
 
 @Mapper
 public interface BlogMapper {
-	@Insert("INSERT INTO blog (title, description, created_id)" +
-            "VALUES (#{title}, #{description}, #{createdId})")
+	@Insert("INSERT INTO blog (id, title, description, created_id)" +
+            "VALUES (#{id},#{title}, #{description}, #{createdId})")
 	int insertBlog(BlogVo blogVo);
 	public List<BlogVo> getBlogs(@Param(value = "input") BlogDto input, @Param("current_page") int current_page, @Param("page_size") int page_size);
 	@Select("SELECT * from blog WHERE id = #{blogId}")
@@ -22,9 +22,9 @@ public interface BlogMapper {
            ,@Result(property = "userId", column = "user_id")
            ,@Result(property = "title", column = "title")
            ,@Result(property = "description", column = "description")})
-	public BlogVo getBlogById(@Param(value = "blogId") Long blogId);
+	public BlogVo getBlogById(@Param(value = "blogId") String blogId);
 	@Delete("delete from blog WHERE id = #{blogId}")
-	public int deleteBlogById(@Param(value="blogId") Long blogId);
+	public int deleteBlogById(@Param(value="blogId") String blogId);
 	@Update("UPDATE blog\n" +
 	"SET tile = #{title}\n" +
 	"description = #{description}\n" +
@@ -35,12 +35,12 @@ public interface BlogMapper {
 	@Select("SELECT url from image WHERE blog_id = #{blogId}")
     @Results(value = {
             @Result(property = "url", column = "url")})
-	List<Image> getImagesByBlogId(Long blogId);
+	List<Image> getImagesByBlogId(String blogId);
 	@Select("SELECT cate.name, cate.id from product_category as pc\n"
 			+ "INNER JOIN category as cate on cate.id = pc.category_id\n"
 			+ "WHERE pc.blog_id = #{blogId}")
     @Results(value = {
             @Result(property = "name", column = "name")
             ,@Result(property = "id", column = "id")})
-	List<Category> getCategoriesByBlogId(Long blogId);
+	List<Category> getCategoriesByBlogId(String blogId);
 }

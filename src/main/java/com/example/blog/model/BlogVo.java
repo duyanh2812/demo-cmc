@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 public class BlogVo extends BaseVo{
-	private Long id;
+	private String id;
 	private String userName;
 	private String title;
 	private String url;

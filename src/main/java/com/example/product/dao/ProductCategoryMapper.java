@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProductCategoryMapper {
     int deleteByPrimaryKey(@Param("categoryId") Long categoryId, @Param("productId") Long productId);
 
-    int insert(long categoryId, long productId);
+    int insert(long categoryId, Long productId, String blogId);
 
     ProductCategory selectByPrimaryKey(@Param("categoryId") Long categoryId, @Param("productId") Long productId);
 

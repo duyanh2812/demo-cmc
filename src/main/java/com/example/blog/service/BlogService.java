@@ -4,20 +4,21 @@
 */
 package com.example.blog.service;
 
-import java.math.BigInteger;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.blog.dto.BlogDto;
 import com.example.blog.model.BlogVo;
-import com.example.product.model.Category;
-import com.example.product.model.Image;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 public interface BlogService {
 	
-	int insertBlog(BlogVo blog, Long userId);
+	int insertBlog(MultipartFile[] multipartFile, String jsonFile, Long userId) throws JsonMappingException, JsonProcessingException;
 	List<BlogVo> getAllBlog(BlogDto input, int page, int size);
 	int countAll(BlogDto input);
-	BlogVo	getBlogById(Long blogId);
-	int deleteBlogById(Long blogId);
+	BlogVo	getBlogById(String blogId);
+	int deleteBlogById(String blogId);
 	int updateBlogById(BlogDto input);
 }

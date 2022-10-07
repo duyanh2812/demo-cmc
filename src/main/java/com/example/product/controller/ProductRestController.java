@@ -107,14 +107,14 @@ public class ProductRestController {
             }
             ProductAddRequestDTO productDTO = new ObjectMapper().readValue(jsonFile, ProductAddRequestDTO.class);
 
-          int id=  productService.insert(new Product(productDTO.getDisplayName(),productDTO.getPrice(),productDTO.getDescription()));
+            int id=  productService.insert(new Product(productDTO.getDisplayName(),productDTO.getPrice(),productDTO.getDescription()));
             System.out.println("productID from mybatis builtIn: " +id);
             Product newestProduct = productService.latestCreatedProduct();
             System.out.println("productID from constructor- latestCreatedProduct Function: " + newestProduct.getId());
 
             // insert image for product
             for(String name: listAddedImg){
-                Image newImg = new Image(newestProduct.getId(), name);
+                Image newImg = new Image(newestProduct.getId(), name, null);
                 imageService.insert(newImg);
             }
 
@@ -122,7 +122,7 @@ public class ProductRestController {
 
             for(long cateID: productDTO.getCategories()){
 //                ProductCategory newCate = new ProductCategory(newestProduct.getId(),cateID);
-                productCategoryService.insert(cateID,newestProduct.getId());
+                productCategoryService.insert(cateID,newestProduct.getId(), null);
             }
 
 

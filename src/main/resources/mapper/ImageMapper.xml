@@ -28,8 +28,8 @@
 <!--      #{createdDtm,jdbcType=TIMESTAMP}, #{createdId,jdbcType=BIGINT}, #{updatedDtm,jdbcType=TIMESTAMP}, -->
 <!--      #{updatedId,jdbcType=BIGINT})-->
 
-    insert into image (product_id, url)
-    values (#{productId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR})
+    insert into image (product_id, url, blog_id)
+    values (#{productId,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{blogId,jdbcType=VARCHAR})
 
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.product.model.Image">

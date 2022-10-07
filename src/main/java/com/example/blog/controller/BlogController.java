@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.blog.dto.BlogDto;
 import com.example.blog.model.BlogVo;
 import com.example.blog.service.BlogService;
 import com.example.common.ResponseVo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @RestController
 @RequestMapping(value = "/api/")
@@ -48,13 +51,14 @@ public class BlogController {
     }
     
     @GetMapping(value = "/blog/{id}")
-    public ResponseEntity<BlogVo> getAllProductsUser(@PathVariable(value = "id") Long blogId){
+    public ResponseEntity<BlogVo> getAllProductsUser(@PathVariable(value = "id") String blogId){
         return new ResponseEntity<>(blogService.getBlogById(blogId),HttpStatus.OK);
     }
     
     @PostMapping(value="/admin/blog/add")
-    public ResponseEntity<ResponseVo> insertBlog(@org.springframework.web.bind.annotation.RequestBody BlogVo input, HttpServletRequest request){
-    	blogService.insertBlog(input, (Long) request.getSession().getAttribute("userId"));
+    public ResponseEntity<ResponseVo> insertBlog(@RequestParam(value = "files", required = false) MultipartFile[] multipartFile,
+            String jsonFile, HttpServletRequest request) throws JsonMappingException, JsonProcessingException{
+    	blogService.insertBlog(multipartFile, jsonFile, (Long) request.getSession().getAttribute("userId"));
     	return new ResponseEntity<>(new ResponseVo("Created"), HttpStatus.CREATED);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProductCategoryService {
     int deleteByPrimaryKey(Long categoryId, Long productId);
 
-    int insert(long categoryId, long productId);
+    int insert(long categoryId, Long productId, String blogId);
 
     ProductCategory selectByPrimaryKey(Long categoryId, Long productId);
 

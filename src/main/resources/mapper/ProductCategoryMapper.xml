@@ -25,8 +25,8 @@
 <!--    values (#{categoryId,jdbcType=BIGINT}, #{createdDtm,jdbcType=TIMESTAMP}, #{createdId,jdbcType=BIGINT},-->
 <!--      #{updatedDtm,jdbcType=TIMESTAMP}, #{updatedId,jdbcType=BIGINT})-->
 
-    insert into product_category (product_id, category_id)
-    values (#{productId,jdbcType=BIGINT},#{categoryId,jdbcType=BIGINT})
+    insert into product_category (product_id, category_id, blog_id)
+    values (#{productId,jdbcType=BIGINT},#{categoryId,jdbcType=BIGINT}, #{blogId,jdbcType=VARCHAR})
 
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.example.product.model.ProductCategory">

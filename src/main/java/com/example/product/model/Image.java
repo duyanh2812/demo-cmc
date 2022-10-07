@@ -25,9 +25,12 @@ public class Image {
     private Date updatedDtm;
 
     private Long updatedId;
+    
+    private String blogId;
 
-    public Image(Long productId, String url) {
+    public Image(Long productId, String url, String blogId) {
         this.productId = productId;
         this.url = url;
+        this.blogId = blogId;
     }
 }
