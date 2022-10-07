@@ -117,4 +117,10 @@
 
         select * from product where id = (select max(id) as newestProduct from product )
     </select>
+    
+   <select id="countAll" parameterType="com.example.blog.dto.BlogDto" resultType="int">
+	   select count(id) as total
+	   from product
+	   where 1=1
+  </select>
 </mapper>

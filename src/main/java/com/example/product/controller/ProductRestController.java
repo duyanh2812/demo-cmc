@@ -1,5 +1,6 @@
 package com.example.product.controller;
 
+import com.example.common.ResponseVo;
 import com.example.file.FileStorageService;
 import com.example.product.dto.ProductAddRequestDTO;
 import com.example.product.dto.ProductAdminDTO;
@@ -43,27 +44,35 @@ public class ProductRestController {
 //    FileUtils fileUtils = new FileUtils();
 
     @GetMapping(value = "/products")
-    public ResponseEntity<List<ProductUserDTO>> getAllProductsUser(@RequestParam(value = "page") int currentPage,
+    public ResponseEntity<ResponseVo> getAllProductsUser(@RequestParam(value = "page") int currentPage,
                                              @RequestParam(value = "size") int pageSize){
-        List<Product> listProduct = new ArrayList<>();
-
-        List<ProductUserDTO> listDTO = new ArrayList<>();
-        listProduct = productService.selectAll(currentPage,pageSize);
-        listDTO = ProductMap.dtoMapProduct(listProduct);
-
-        return new ResponseEntity<>(listDTO,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/admin/products")
-    public ResponseEntity<List<ProductAdminDTO>> getAllProductsAdmin(@RequestParam(value = "page") int currentPage,
-                                              @RequestParam(value = "size") int pageSize){
-        List<Product> listProduct = new ArrayList<>();
+    	List<Product> listProduct = new ArrayList<>();
+        ResponseVo response = new ResponseVo("OK");
+        
 
         List<ProductAdminDTO> listDTO = new ArrayList<>();
         listProduct = productService.selectAll(currentPage,pageSize);
         listDTO = adminMap.dtoMapProduct(listProduct);
+        response.setVoList(listProduct);
+        response.setTotal(productService.countAll());
 
-        return new ResponseEntity<>(listDTO,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+        return new ResponseEntity<>(response,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/admin/products")
+    public ResponseEntity<ResponseVo> getAllProductsAdmin(@RequestParam(value = "page") int currentPage,
+                                              @RequestParam(value = "size") int pageSize){
+        List<Product> listProduct = new ArrayList<>();
+        ResponseVo response = new ResponseVo("OK");
+        response.setVoList(listProduct);
+        response.setTotal(response.getTotal());
+
+        List<ProductAdminDTO> listDTO = new ArrayList<>();
+        listProduct = productService.selectAll(currentPage,pageSize);
+        listDTO = adminMap.dtoMapProduct(listProduct);
+        
+
+        return new ResponseEntity<>(response,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
     @GetMapping(value = "/product/{id}")

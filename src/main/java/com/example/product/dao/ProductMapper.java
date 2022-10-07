@@ -16,6 +16,7 @@ public interface ProductMapper {
     Product latestCreatedProduct();
 
     List<Product> selectAll(int current_page, int page_size);
+    int countAll();
 
     int updateByPrimaryKey(Product row);
 

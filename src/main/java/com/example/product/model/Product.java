@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+import com.example.common.BaseVo;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Product extends BaseVo{
     private Long id;
 
     private String name;

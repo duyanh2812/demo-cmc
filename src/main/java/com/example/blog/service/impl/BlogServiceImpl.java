@@ -57,9 +57,11 @@ public class BlogServiceImpl implements BlogService{
 	}
 
 	@Override
-	public List<BlogVo> getAllBlog(BlogDto input, int currentPage, int size) {
+	public List<BlogVo> getAllBlog(BlogDto input, int currentPage, int page_size) {
 		// TODO Auto-generated method stub
-		List<BlogVo> blogs = blogMapper.getBlogs(input, currentPage - 1, size);
+		int offset = (currentPage-1)* page_size;
+        page_size = offset+page_size;
+		List<BlogVo> blogs = blogMapper.getBlogs(input, offset, page_size);
 		for (BlogVo blogVo : blogs) {
 			blogVo.setImages(blogMapper.getImagesByBlogId(blogVo.getId()));
 			blogVo.setCategories(blogMapper.getCategoriesByBlogId(blogVo.getId()));

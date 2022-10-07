@@ -58,4 +58,10 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.search(name, offset,page_size);
 
     }
+
+	@Override
+	public int countAll() {
+		// TODO Auto-generated method stub
+		return productMapper.countAll();
+	}
 }
