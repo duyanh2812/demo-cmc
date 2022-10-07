@@ -15,7 +15,7 @@
   </resultMap>
 
   <select id="getBlogs" parameterType="com.example.blog.dto.BlogDto" resultMap="BaseResultMap">
-    select * from  (select blog.id as id, blog.title as title, blog.description as description, user.name as user_name, DENSE_RANK() OVER (ORDER BY id) rnum
+    select * from  (select blog.id as id, blog.title as title, blog.description as description, user.name as user_name, blog.created_dtm as created_dtm, DENSE_RANK() OVER (ORDER BY id) rnum
     from blog as blog
     left join user as user on user.id = blog.created_id
     where 1=1
