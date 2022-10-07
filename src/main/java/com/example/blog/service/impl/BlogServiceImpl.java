@@ -28,7 +28,12 @@ public class BlogServiceImpl implements BlogService{
 	@Override
 	public List<BlogVo> getAllBlog(BlogDto input, int currentPage, int size) {
 		// TODO Auto-generated method stub
-		return blogMapper.getBlogs(input, currentPage, size);
+		List<BlogVo> blogs = blogMapper.getBlogs(input, currentPage, size);
+		for (BlogVo blogVo : blogs) {
+			blogVo.setImages(blogMapper.getImagesByBlogId(blogVo.getId()));
+			blogVo.setCategories(blogMapper.getCategoriesByBlogId(blogVo.getId()));
+		}
+		return blogs;
 	}
 
 	@Override

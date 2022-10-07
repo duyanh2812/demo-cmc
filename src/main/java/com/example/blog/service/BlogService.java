@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.example.blog.dto.BlogDto;
 import com.example.blog.model.BlogVo;
+import com.example.product.model.Category;
+import com.example.product.model.Image;
 
 public interface BlogService {
 	
@@ -18,5 +20,4 @@ public interface BlogService {
 	BlogVo	getBlogById(Long blogId);
 	int deleteBlogById(Long blogId);
 	int updateBlogById(BlogDto input);
-   
 }

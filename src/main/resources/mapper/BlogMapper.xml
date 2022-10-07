@@ -4,7 +4,7 @@
 
   <resultMap id="BaseResultMap" type="com.example.blog.model.BlogVo">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="description" jdbcType="VARCHAR" property="description" />
@@ -15,8 +15,9 @@
   </resultMap>
 
   <select id="getBlogs" parameterType="com.example.blog.dto.BlogDto" resultMap="BaseResultMap">
-    select * from  (select id, title, description, DENSE_RANK() OVER (ORDER BY id) rnum
-    from blog
+    select * from  (select blog.id as id, blog.title as title, blog.description as description, user.name as user_name, DENSE_RANK() OVER (ORDER BY id) rnum
+    from blog as blog
+    left join user as user on user.id = blog.created_id
     where 1=1
     <if test="input != null and input.title != null and input.title != ''">
     	AND title like #{title,jdbcType=VARCHAR}
