@@ -19,11 +19,11 @@
     from blog as blog
     left join user as user on user.id = blog.created_id
     where 1=1
-    <if test="input != null and input.title != null and input.title != ''">
-    	AND title like #{title,jdbcType=VARCHAR}
+    <if test="input.title != null and input.title != ''">
+    	AND title like #{input.title,jdbcType=VARCHAR}
   	</if>
-  	<if test="input != null and input.description != null and input.description != ''">
-    	AND description like #{description,jdbcType=VARCHAR}
+  	<if test="input.description != null and input.description != ''">
+    	AND description like #{input.description,jdbcType=VARCHAR}
   	</if> ) as tbl1
   	where tbl1.rnum > #{current_page,jdbcType=INTEGER} and #{page_size,jdbcType=INTEGER} >= tbl1.rnum
   </select>
@@ -32,11 +32,11 @@
     select count(id) as total
     from blog
     where 1=1
-    <if test="input != null and input.title != null and input.title != ''">
-    	AND title like #{title,jdbcType=VARCHAR}
+    <if test="input.title != null and input.title != ''">
+    	AND title like #{input.title,jdbcType=VARCHAR}
   	</if>
-  	<if test="input != null and input.description != null and input.description != ''">
-    	AND description like #{description,jdbcType=VARCHAR}
+  	<if test="input.description != null and input.description != ''">
+    	AND description like #{input.description,jdbcType=VARCHAR}
   	</if>
   </select>
 </mapper>

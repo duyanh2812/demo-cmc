@@ -9,6 +9,6 @@ import lombok.Data;
 @Data
 public class BlogDto{
 	private String title;
-	private String desription;
+	private String description;
 	private List<BlogVo> blogVos; 
 }
