@@ -17,6 +17,8 @@ import com.example.product.model.Category;
 import com.example.product.model.Image;
 import com.example.product.service.ImageService;
 import com.example.product.service.ProductCategoryService;
+import com.example.user.dao.UserMapper;
+import com.example.user.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,9 +34,11 @@ public class BlogServiceImpl implements BlogService{
     ImageService imageService;
     @Autowired
     ProductCategoryService productCategoryService;
+    @Autowired
+    UserMapper userMapper;
 
 	@Override
-	public int insertBlog(MultipartFile[] multipartFile, String jsonFile, Long userId) throws JsonMappingException, JsonProcessingException {
+	public int insertBlog(MultipartFile[] multipartFile, String jsonFile, String uerName) throws JsonMappingException, JsonProcessingException {
 		// TODO Auto-generated method stub
 		List<String> listAddedImg = new ArrayList<>();
 		for(MultipartFile file: multipartFile){
@@ -43,7 +47,7 @@ public class BlogServiceImpl implements BlogService{
            }
 		String blogID = "BLOG_" + UUID.randomUUID().toString();
 		BlogVo blogVo = new ObjectMapper().readValue(jsonFile, BlogVo.class);
-		blogVo.setCreatedId(userId);
+		blogVo.setCreatedId(userMapper.getUserIdByUserName(uerName));
 		blogVo.setId(blogID);
 		blogMapper.insertBlog(blogVo);
 		for(String name: listAddedImg){

@@ -55,7 +55,7 @@ public class BlogController {
     @PostMapping(value="/admin/blog/add")
     public ResponseEntity<ResponseVo> insertBlog(@RequestParam(value = "files", required = false) MultipartFile[] multipartFile,
             String jsonFile, HttpServletRequest request) throws JsonMappingException, JsonProcessingException{
-    	blogService.insertBlog(multipartFile, jsonFile, (Long) request.getSession().getAttribute("userId"));
+    	blogService.insertBlog(multipartFile, jsonFile, (String) request.getSession().getAttribute("userName"));
     	return new ResponseEntity<>(new ResponseVo("Created"), HttpStatus.CREATED);
     }
 }

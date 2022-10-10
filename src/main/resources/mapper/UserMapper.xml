@@ -66,4 +66,10 @@
     from user
     where email = #{email,jdbcType=VARCHAR}
   </select>
+  
+  <select id="getUserIdByUserName" parameterType="java.lang.String" resultType="long">
+    select id
+    from user
+    where email = #{userName}
+  </select>
 </mapper>

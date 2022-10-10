@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 public interface BlogService {
 	
-	int insertBlog(MultipartFile[] multipartFile, String jsonFile, Long userId) throws JsonMappingException, JsonProcessingException;
+	int insertBlog(MultipartFile[] multipartFile, String jsonFile, String userName) throws JsonMappingException, JsonProcessingException;
 	List<BlogVo> getAllBlog(BlogDto input, int page, int size);
 	int countAll(BlogDto input);
 	BlogVo	getBlogById(String blogId);
