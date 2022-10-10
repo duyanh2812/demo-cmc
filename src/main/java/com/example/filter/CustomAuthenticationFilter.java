@@ -45,8 +45,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         //ma thong bao nen de cho khac va ma hoa
         Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
         Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-        Instant expiration = issuedAt.plus(3, ChronoUnit.SECONDS);
-        Instant expiration_refresh = issuedAt.plus(60, ChronoUnit.SECONDS);
+        Instant expiration = issuedAt.plus(30, ChronoUnit.MINUTES);
+        Instant expiration_refresh = issuedAt.plus(60, ChronoUnit.MINUTES);
         
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
