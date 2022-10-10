@@ -20,10 +20,12 @@
     left join user as user on user.id = blog.created_id
     where 1=1
     <if test="input.title != null and input.title != ''">
-    	AND title like #{input.title,jdbcType=VARCHAR}
+    	<bind name="title" value="'%' + input.title + '%'" />
+    	AND title like #{title}
   	</if>
   	<if test="input.description != null and input.description != ''">
-    	AND description like #{input.description,jdbcType=VARCHAR}
+  		<bind name="description" value="'%' + input.description + '%'" />
+    	AND description like #{description}
   	</if> ) as tbl1
   	where tbl1.rnum > #{current_page,jdbcType=INTEGER} and #{page_size,jdbcType=INTEGER} >= tbl1.rnum
   </select>
@@ -33,10 +35,12 @@
     from blog
     where 1=1
     <if test="input.title != null and input.title != ''">
-    	AND title like #{input.title,jdbcType=VARCHAR}
+    	<bind name="title" value="'%' + input.title + '%'" />
+    	AND title like #{title}
   	</if>
   	<if test="input.description != null and input.description != ''">
-    	AND description like #{input.description,jdbcType=VARCHAR}
+    	<bind name="description" value="'%' + input.description + '%'" />
+    	AND description like #{description}
   	</if>
   </select>
 </mapper>
