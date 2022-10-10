@@ -8,8 +8,10 @@ import com.example.product.model.Category;
 import com.example.product.model.Image;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class BlogVo extends BaseVo{
 	private String id;
 	private String userName;

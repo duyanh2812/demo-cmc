@@ -70,7 +70,8 @@ public class ProductRestController {
         List<ProductAdminDTO> listDTO = new ArrayList<>();
         listProduct = productService.selectAll(currentPage,pageSize);
         listDTO = adminMap.dtoMapProduct(listProduct);
-        
+        response.setVoList(listProduct);
+        response.setTotal(productService.countAll());
 
         return new ResponseEntity<>(response,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
