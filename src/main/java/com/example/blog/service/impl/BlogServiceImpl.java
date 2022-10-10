@@ -50,9 +50,12 @@ public class BlogServiceImpl implements BlogService{
             Image newImg = new Image(null, name, blogID);
             imageService.insert(newImg);
         }
-		for(Category cate: blogVo.getCategories()){
-          productCategoryService.insert(cate.getId(), null, blogID);
-      }
+		if (blogVo.getCategories() != null && blogVo.getCategories().size() > 0) {
+			for(Category cate: blogVo.getCategories()){
+	          productCategoryService.insert(cate.getId(), null, blogID);
+	        }
+		}
+		
 		return 0;
 	}
 
