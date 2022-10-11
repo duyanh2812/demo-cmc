@@ -5,6 +5,7 @@
 package com.example.product.service.impl;
 
 import com.example.product.dao.ProductMapper;
+import com.example.product.dto.ProductUserDTO;
 import com.example.product.model.Product;
 import com.example.product.service.ProductService;
 import org.springframework.stereotype.Service;
@@ -39,11 +40,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> selectAll(int current_page, int page_size) {
+    public List<Product> selectAll(int current_page, int page_size, ProductUserDTO input) {
 
         int offset = (current_page-1)* page_size;
         page_size = offset+page_size;
-        return productMapper.selectAll(offset,page_size);
+        return productMapper.selectAll(offset,page_size,input);
     }
 
     @Override
@@ -60,8 +61,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
 	@Override
-	public int countAll() {
+	public int countAll(ProductUserDTO input) {
 		// TODO Auto-generated method stub
-		return productMapper.countAll();
+		return productMapper.countAll(input);
 	}
 }

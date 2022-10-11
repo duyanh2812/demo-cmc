@@ -1,5 +1,6 @@
 package com.example.product.dao;
 
+import com.example.product.dto.ProductUserDTO;
 import com.example.product.model.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,8 +16,8 @@ public interface ProductMapper {
 
     Product latestCreatedProduct();
 
-    List<Product> selectAll(int current_page, int page_size);
-    int countAll();
+    List<Product> selectAll(int current_page, int page_size, @Param(value = "input") ProductUserDTO input);
+    int countAll(@Param(value = "input") ProductUserDTO input);
 
     int updateByPrimaryKey(Product row);
 

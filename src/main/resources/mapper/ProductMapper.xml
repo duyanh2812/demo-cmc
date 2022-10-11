@@ -73,6 +73,11 @@
                left join (select z.category_id, z.product_id, w.name from product_category z inner join category w on z.category_id = w.id )pc on a.id = pc.product_id
                 left join user u on u.id = a.created_id
                 left join user u1 on u.id = a.updated_id
+                where 1=1
+		    <if test="input.name != null and input.name != ''">
+		    	<bind name="name" value="'%' + input.name + '%'" />
+			    	AND a.name like #{name}
+		  	</if>
       ) as tbl1
     where tbl1.rnum > #{current_page,jdbcType=INTEGER} and #{page_size,jdbcType=INTEGER} >= tbl1.rnum
   </select>
@@ -103,18 +108,6 @@
     <result property="name" column="name"/>
   </resultMap>
     <select id="latestCreatedProduct" resultMap="ProductResultMap" >
-<!--        select * from  (-->
-<!--                           select a.id, a.`name`, a.price, a.`desc`, a.delete_yn, a.created_dtm, a.created_id, a.updated_dtm,-->
-<!--                                  a.updated_id, i.id as img_id, i.url as img_url, pc.category_id as ctg_id, pc.name as ctg_name, u.id as createdID, u.name as creatorName, u.email as creatorEmail,-->
-<!--                                  u1.id as modifierID, u1.name as modifierName, u1.email as modifierEmail-->
-<!--                                   , DENSE_RANK() OVER (ORDER BY a.id) rnum-->
-<!--                           from product a left join image i on a.id = i.product_id-->
-<!--                                          left join (select z.category_id, z.product_id, w.name from product_category z inner join category w on z.category_id = w.id )pc on a.id = pc.product_id-->
-<!--                                          left join user u on u.id = a.created_id-->
-<!--                                          left join user u1 on u.id = a.updated_id-->
-<!--                       ) as tudz-->
-<!--        where rnum = (select max(id) as newestProduct from product )-->
-
         select * from product where id = (select max(id) as newestProduct from product )
     </select>
     
@@ -122,5 +115,9 @@
 	   select count(id) as total
 	   from product
 	   where 1=1
+	   <if test="input.name != null and input.name != ''">
+	    	<bind name="name" value="'%' + input.name + '%'" />
+		    	AND name like #{name}
+	   </if>
   </select>
 </mapper>

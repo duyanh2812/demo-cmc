@@ -45,34 +45,30 @@ public class ProductRestController {
 
     @GetMapping(value = "/products")
     public ResponseEntity<ResponseVo> getAllProductsUser(@RequestParam(value = "page") int currentPage,
-                                             @RequestParam(value = "size") int pageSize){
+                                             @RequestParam(value = "size") int pageSize, ProductUserDTO input){
     	List<Product> listProduct = new ArrayList<>();
         ResponseVo response = new ResponseVo("OK");
         
 
         List<ProductAdminDTO> listDTO = new ArrayList<>();
-        listProduct = productService.selectAll(currentPage,pageSize);
+        listProduct = productService.selectAll(currentPage,pageSize, input);
         listDTO = adminMap.dtoMapProduct(listProduct);
         response.setVoList(listProduct);
-        response.setTotal(productService.countAll());
+        response.setTotal(productService.countAll(input));
 
         return new ResponseEntity<>(response,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
     @GetMapping(value = "/admin/products")
     public ResponseEntity<ResponseVo> getAllProductsAdmin(@RequestParam(value = "page") int currentPage,
-                                              @RequestParam(value = "size") int pageSize){
+                                              @RequestParam(value = "size") int pageSize, ProductUserDTO input){
         List<Product> listProduct = new ArrayList<>();
         ResponseVo response = new ResponseVo("OK");
-        response.setVoList(listProduct);
-        response.setTotal(response.getTotal());
-
         List<ProductAdminDTO> listDTO = new ArrayList<>();
-        listProduct = productService.selectAll(currentPage,pageSize);
+        listProduct = productService.selectAll(currentPage,pageSize, input);
         listDTO = adminMap.dtoMapProduct(listProduct);
         response.setVoList(listProduct);
-        response.setTotal(productService.countAll());
-
+        response.setTotal(productService.countAll(input));
         return new ResponseEntity<>(response,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
@@ -91,24 +87,10 @@ public class ProductRestController {
 
     }
 
-    @GetMapping(value = "/search")
-    public ResponseEntity<List<ProductUserDTO>> searchProductUser(@RequestParam(value = "name") String name ,
-                                            @RequestParam(value = "page") int currentPage,
-                                            @RequestParam(value = "size") int pageSize){
-        List<Product> list  = new ArrayList<>();
-        list = productService.search(name,currentPage,pageSize);
-
-        List<ProductUserDTO> listDTO = ProductMap.dtoMapProduct(list);
-
-        return new ResponseEntity<>(listDTO,listDTO==null? HttpStatus.BAD_REQUEST : HttpStatus.OK);
-    }
-
     @PostMapping(value = "/admin/addProduct")
     public ResponseEntity<String> addProduct(
             @RequestParam(value = "files", required = false) MultipartFile[] multipartFile,
             String jsonFile){
-//        MultipartFile[] multipartFile = productDTO.getImages();
-        // upload list img for product
         List<String> listAddedImg = new ArrayList<>();
         try {
             for(MultipartFile file: multipartFile){
@@ -128,10 +110,7 @@ public class ProductRestController {
                 imageService.insert(newImg);
             }
 
-//             insert category for product
-
             for(long cateID: productDTO.getCategories()){
-//                ProductCategory newCate = new ProductCategory(newestProduct.getId(),cateID);
                 productCategoryService.insert(cateID,newestProduct.getId(), null);
             }
 

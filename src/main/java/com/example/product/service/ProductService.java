@@ -5,6 +5,7 @@
 package com.example.product.service;
 
 
+import com.example.product.dto.ProductUserDTO;
 import com.example.product.model.Product;
 
 import java.util.List;
@@ -17,9 +18,9 @@ public interface ProductService {
     Product selectByPrimaryKey(Long id);
     Product latestCreatedProduct();
 
-    List<Product> selectAll(int current_page, int page_size);
+    List<Product> selectAll(int current_page, int page_size, ProductUserDTO input);
     
-    int countAll();
+    int countAll(ProductUserDTO input);
 
     int updateByPrimaryKey(Product row);
 
