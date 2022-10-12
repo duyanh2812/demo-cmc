@@ -41,8 +41,6 @@ public class ProductRestController {
     @Autowired
     private FileStorageService fileStorageService;
 
-//    FileUtils fileUtils = new FileUtils();
-
     @GetMapping(value = "/products")
     public ResponseEntity<ResponseVo> getAllProductsUser(@RequestParam(value = "page") int currentPage,
                                              @RequestParam(value = "size") int pageSize, ProductUserDTO input){
