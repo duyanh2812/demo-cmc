@@ -79,7 +79,10 @@ public class BlogServiceImpl implements BlogService{
 	@Override
 	public BlogVo getBlogById(String blogId) {
 		// TODO Auto-generated method stub
-		return blogMapper.getBlogById(blogId);
+		BlogVo blog =  blogMapper.getBlogById(blogId);
+		blog.setImages(blogMapper.getImagesByBlogId(blog.getId()));
+		blog.setCategories(blogMapper.getCategoriesByBlogId(blog.getId()));
+		return blog;
 	}
 
 	@Override
